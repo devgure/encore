@@ -1,0 +1,215 @@
+bash
+Copy
+#!/usr/bin/env bash
+#
+# generate-sparkly-dating-app.sh
+# Recreates the complete sparkly-dating-app/ directory & file tree.
+# Run from repo root.
+
+REPO="sparkly-dating-app"
+
+# ------------------------------------------------------------
+# Helpers
+# ------------------------------------------------------------
+mk_dirs() {
+  for d in "$@"; do
+    mkdir -p "${REPO}/${d}"
+  done
+}
+
+touch_file() {
+  f="${REPO}/$1"
+  mkdir -p "$(dirname "$f")"
+  [ ! -f "$f" ] && touch "$f"
+}
+
+# ------------------------------------------------------------
+# 1. .github/workflows/
+# ------------------------------------------------------------
+mk_dirs .github/workflows
+touch_file ".github/workflows/ci.yml"
+touch_file ".github/workflows/cd.yml"
+
+# ------------------------------------------------------------
+# 2. docker/
+# ------------------------------------------------------------
+mk_dirs docker
+touch_file "docker/nginx.conf"
+touch_file "docker/Dockerfile.nginx"
+touch_file "docker/Dockerfile.web"
+touch_file "docker/Dockerfile.backend"
+touch_file "docker/Dockerfile.admin"
+touch_file "docker/Dockerfile.ai"
+
+# ------------------------------------------------------------
+# 3. scripts/
+# ------------------------------------------------------------
+mk_dirs scripts
+touch_file "scripts/seed-db.ts"
+touch_file "scripts/test-stripe-webhook.ts"
+touch_file "scripts/deploy.sh"
+
+# ------------------------------------------------------------
+# 4. mobile/
+# ------------------------------------------------------------
+mk_dirs \
+  mobile/assets \
+  mobile/components \
+  mobile/screens \
+  mobile/navigation \
+  mobile/services \
+  mobile/hooks \
+  mobile/utils \
+  mobile/constants
+
+touch_file "mobile/App.tsx"
+touch_file "mobile/babel.config.js"
+touch_file "mobile/tsconfig.json"
+touch_file "mobile/app.json"
+touch_file "mobile/components/CardSwipe.tsx"
+touch_file "mobile/components/PhotoUploader.tsx"
+touch_file "mobile/components/MatchModal.tsx"
+touch_file "mobile/screens/LoginScreen.tsx"
+touch_file "mobile/screens/HomeScreen.tsx"
+touch_file "mobile/screens/ChatScreen.tsx"
+touch_file "mobile/screens/ProfileScreen.tsx"
+touch_file "mobile/navigation/AppNavigator.tsx"
+touch_file "mobile/services/api.ts"
+touch_file "mobile/services/authService.ts"
+touch_file "mobile/services/matchService.ts"
+touch_file "mobile/hooks/useUser.ts"
+touch_file "mobile/utils/i18n.ts"
+touch_file "mobile/constants/routes.ts"
+touch_file "mobile/Dockerfile"
+
+# ------------------------------------------------------------
+# 5. web/
+# ------------------------------------------------------------
+mk_dirs \
+  web/public \
+  web/src/components \
+  web/src/pages \
+  web/src/services \
+  web/src/hooks \
+  web/src/store \
+  web/src/i18n \
+  web/src/styles
+
+touch_file "web/public/index.html"
+touch_file "web/src/App.tsx"
+touch_file "web/src/main.tsx"
+touch_file "web/src/components/SwipeCard.tsx"
+touch_file "web/src/components/SubscribeButton.tsx"
+touch_file "web/src/pages/Home.tsx"
+touch_file "web/src/pages/Chat.tsx"
+touch_file "web/src/services/api.ts"
+touch_file "web/src/services/stripeService.ts"
+touch_file "web/src/hooks/useAuth.ts"
+touch_file "web/src/store/index.ts"
+touch_file "web/src/i18n/en.json"
+touch_file "web/src/styles/tailwind.css"
+touch_file "web/Dockerfile"
+touch_file "web/nginx.conf"
+
+# ------------------------------------------------------------
+# 6. backend/
+# ------------------------------------------------------------
+mk_dirs \
+  backend/src/auth \
+  backend/src/user \
+  backend/src/discovery \
+  backend/src/chat \
+  backend/src/payment \
+  backend/src/admin \
+  backend/src/ai \
+  backend/src/prisma \
+  backend/src/swagger \
+  backend/test
+
+touch_file "backend/src/main.ts"
+touch_file "backend/src/app.module.ts"
+touch_file "backend/src/prisma/schema.prisma"
+touch_file "backend/src/auth/auth.controller.ts"
+touch_file "backend/src/auth/auth.service.ts"
+touch_file "backend/src/auth/firebase-auth.guard.ts"
+touch_file "backend/src/user/user.controller.ts"
+touch_file "backend/src/user/user.service.ts"
+touch_file "backend/src/discovery/discovery.service.ts"
+touch_file "backend/src/chat/chat.gateway.ts"
+touch_file "backend/src/chat/chat.service.ts"
+touch_file "backend/src/payment/payment.controller.ts"
+touch_file "backend/src/payment/payment.service.ts"
+touch_file "backend/src/admin/admin.controller.ts"
+touch_file "backend/src/ai/ai.service.ts"
+touch_file "backend/src/swagger/swagger.setup.ts"
+touch_file "backend/test/app.e2e-spec.ts"
+touch_file "backend/test/jest-e2e.json"
+touch_file "backend/Dockerfile"
+touch_file "backend/nginx.conf"
+
+# ------------------------------------------------------------
+# 7. ai-service/
+# ------------------------------------------------------------
+mk_dirs ai-service/models
+touch_file "ai-service/main.py"
+touch_file "ai-service/requirements.txt"
+touch_file "ai-service/facial_analysis.py"
+touch_file "ai-service/train_model.ipynb"
+touch_file "ai-service/models/matching_model.pkl"
+touch_file "ai-service/Dockerfile"
+
+# ------------------------------------------------------------
+# 8. admin-dashboard/
+# ------------------------------------------------------------
+mk_dirs \
+  admin-dashboard/public \
+  admin-dashboard/src/pages \
+  admin-dashboard/src/services
+
+touch_file "admin-dashboard/src/App.tsx"
+touch_file "admin-dashboard/src/pages/UsersPage.tsx"
+touch_file "admin-dashboard/src/pages/ReportsPage.tsx"
+touch_file "admin-dashboard/src/pages/RevenueDashboard.tsx"
+touch_file "admin-dashboard/src/services/adminApi.ts"
+touch_file "admin-dashboard/Dockerfile"
+touch_file "admin-dashboard/nginx.conf"
+
+# ------------------------------------------------------------
+# 9. docs/
+# ------------------------------------------------------------
+mk_dirs docs
+touch_file "docs/DEPLOYMENT.md"
+touch_file "docs/OAUTH_SETUP.md"
+touch_file "docs/API_DOCS.md"
+touch_file "docs/TESTING.md"
+
+# ------------------------------------------------------------
+# 10. openapi/
+# ------------------------------------------------------------
+mk_dirs openapi
+touch_file "openapi/openapi.yaml"
+
+# ------------------------------------------------------------
+# 11. cypress/
+# ------------------------------------------------------------
+mk_dirs cypress/e2e
+touch_file "cypress/e2e/login.cy.ts"
+touch_file "cypress/e2e/chat.cy.ts"
+touch_file "cypress/cypress.config.ts"
+
+# ------------------------------------------------------------
+# 12. tests/
+# ------------------------------------------------------------
+mk_dirs tests/unit tests/mocks
+touch_file "tests/unit/user.service.spec.ts"
+touch_file "tests/mocks/mockData.ts"
+
+# ------------------------------------------------------------
+# 13. Root-level
+# ------------------------------------------------------------
+touch_file ".env.example"
+touch_file "docker-compose.yml"
+touch_file "package.json"
+touch_file "README.md"
+
+echo "✅  sparkly-dating-app/ directory & file structure generated."
